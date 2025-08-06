@@ -6,11 +6,17 @@ import (
 
 // testing 7/20/25 with frontend in separate directory
 
-const fsPath string = "/app/static"
-const bballPath string = "/app/static/bball/bball.html"
-const abtPath string = "/app/static/about/about.html"
-const bballAbtPath string = "/app/static/about/bball_about.html"
-const brontoPath string = "/app/static/bronto/bronto.html"
+// const fsPath string = "/app/static"
+// const bballPath string = "/app/static/bball/bball.html"
+// const abtPath string = "/app/static/about/about.html"
+// const bballAbtPath string = "/app/static/about/bball_about.html"
+// const brontoPath string = "/app/static/bronto/bronto.html"
+
+const fsPath string = "/static"
+const bballPath string = "/static/bball/bball.html"
+const abtPath string = "/static/about/about.html"
+const bballAbtPath string = "/static/about/bball_about.html"
+const brontoPath string = "/static/bronto/bronto.html"
 
 func (app *application) rootHndl(w http.ResponseWriter, r *http.Request) {
 	LogHTTP(r)

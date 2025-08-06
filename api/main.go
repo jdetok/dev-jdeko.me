@@ -5,7 +5,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/jdetok/dev-jdeko.me/api/resp"
 	"github.com/jdetok/dev-jdeko.me/api/store"
 	"github.com/jdetok/dev-jdeko.me/pgdb"
 	"github.com/jdetok/golib/envd"
@@ -34,13 +33,14 @@ func main() {
 	}
 
 	// configs go here - 8080 for testing, will derive real vals from environment
-	cfg := config{
-		addr: hostaddr,
-	}
-
+	/*
+		cfg := config{
+			addr: hostaddr,
+		}
+	*/
 	// initialize the app with the configs
 	app := &application{
-		config:   cfg,
+		config:   config{addr: hostaddr},
 		database: db,
 	}
 	// create array of player structs
@@ -61,23 +61,12 @@ func main() {
 		fmt.Println(e.BuildErr(err).Error())
 	}
 
-	/*
-		fmt.Printf("players: %d | seasons: %d | teams: %d\n", len(app.players),
-			len(app.seasons), len(app.teams))
-	*/
 	// checks if store needs refreshed every 30 seconds, refreshes if 60 sec since last
 	go store.UpdateStructs(app.database, &app.lastUpdate,
 		&app.players, &app.seasons, &app.teams,
 		30*time.Second, 300*time.Second)
 
-	var rp resp.Resp
-	js, err := rp.GetPlayerDash(app.database, 2544, 22024, 0)
-	// js, err := rp.GetPlayerDash(app.database, 0, 22024, 1610612741)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(string(js))
-
+	// MOUNT & RUN HTTP SERVER
 	mux := app.mount()
 	if err := app.run(mux); err != nil {
 		e.Msg = "error mounting api/http server"
@@ -85,53 +74,3 @@ func main() {
 	}
 
 }
-
-// var tm string
-// var rs []any
-/*
-	var ps []store.Player
-	// rows, err := db.Query("select team from lg.team order by team_id desc limit 10")
-	rows, err := db.Query(pgdb.PlayersSeason.Q)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	for rows.Next() {
-		var p store.Player
-		rows.Scan(&p.PlayerId, &p.Name, &p.League, &p.SeasonIdMax, &p.SeasonIdMin,
-			&p.PSeasonIdMax, &p.PSeasonIdMin)
-		ps = append(ps, p)
-	}
-	fmt.Println(ps)
-*/
-
-/*
-	var ss []store.Season
-	// rows, err := db.Query("select team from lg.team order by team_id desc limit 10")
-	rows, err := db.Query(pgdb.RSeasons.Q)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	for rows.Next() {
-		var s store.Season
-		rows.Scan(&s.SeasonId, &s.Season, &s.WSeason)
-		ss = append(ss, s)
-	}
-	fmt.Println(ss)
-*/
-
-/*
-	var ts []store.Team
-	rows, err := db.Query(pgdb.Teams.Q)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	for rows.Next() {
-		var t store.Team
-		rows.Scan(&t.League, &t.TeamId, &t.TeamAbbr, &t.CityTeam)
-		ts = append(ts, t)
-	}
-	fmt.Println(ts)
-*/

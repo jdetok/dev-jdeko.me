@@ -1,4 +1,4 @@
-# todo 12pm 8/6
+# postgres migration from mariadb notes 8/6
 ## 1. remake queries used by bball endpoints
 - playerDashHndl
     - GetpIdsId
