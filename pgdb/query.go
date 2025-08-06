@@ -5,6 +5,19 @@ type Query struct {
 	Q    string   // query
 }
 
+// GetSeasons
+var AllSeasons = Query{
+	Args: []string{},
+	Q: `
+	select szn_id, szn_desc, wszn_desc
+	from lg.szn	
+	where left(cast(szn_id as varchar(5)), 1) in ('2', '4')
+	and right(cast(szn_id as varchar(5)), 4) != '9999'
+	order by right(cast(szn_id as varchar(5)), 4) desc, 
+	left(cast(szn_id as varchar(5)), 1);
+	`,
+}
+
 // GetPlayerDash
 var Player = Query{
 	Q: `
@@ -27,32 +40,35 @@ var TeamSeasonTopP = Query{
 	`,
 }
 
-var RecentGamePlayers = Query{
+var RecGameTopScorers = Query{
 	Q: `
-	select a.game_id, a.team_id, e.player_id, f.player, b.lg, c.team, c.team_name,
-	b.game_date, b.matchup, b.final, b.ot, a.pts, e.pts
-	from t_box a
-	inner join game b on b.game_id = a.game_id
-	inner join team c on c.team_id = a.team_id
-	inner join p_box d on d.game_id = a.game_id
-		and d.team_id = a.team_id
-	inner join (
-		select game_id, player_id, team_id, pts
-		from p_box
-		group by game_id, team_id, player_id
-		order by pts desc
-		limit 1
-	) e on e.game_id = a.game_id and e.team_id = a.team_id
-	inner join player f on f.player_id = e.player_id and f.team_id = a.team_id
-	where b.game_date = (
-		select max(game_date) from game 
-		where left(season_id, 1) in ('2', '4')
-		and lg in ('NBA', 'WNBA')
-	)
-	and left(a.season_id, 1) in ('2', '4')
-	and b.lg in ('NBA', 'WNBA')
-	group by a.game_id, a.team_id
-	order by e.pts desc
+	select * from (
+		select distinct on (a.game_id)
+		a.game_id,  
+		a.team_id, 
+		d.player_id, 
+		e.player, 
+		case 
+			when c.lg_id = 0 then 'NBA'
+			when c.lg_id = 1 then 'WNBA'
+			end as lg, 
+		c.team,
+		c.team_long,
+		a.gdate,
+		a.matchup, 
+		a.wl, 
+		a.pts as tm_pts, 
+		d.pts as plr_pts
+		from stats.tbox a
+		inner join (
+			select max(gdate) as md
+			from stats.tbox
+		) b on a.gdate = b.md
+		inner join lg.team c on c.team_id = a.team_id
+		inner join stats.pbox d on d.game_id = a.game_id and d.team_id = a.team_id
+		inner join lg.plr e on e.player_id = d.player_id
+		order by a.game_id, d.pts desc, (d.ast + d.reb + d.stl + d.blk) desc)
+	order by plr_pts desc
 	`,
 }
 
@@ -84,19 +100,6 @@ var PlayersSeason = Query{
 		and right(cast(season_id as varchar(5)), 4) != '9999'
 		group by player_id
 	) c on c.player_id = a.player_id
-	`,
-}
-
-// GetSeasons
-var RSeasons = Query{
-	Args: []string{},
-	Q: `
-	select szn_id, szn_desc, wszn_desc
-	from lg.szn	
-	where left(cast(szn_id as varchar(5)), 1) in ('2', '4')
-	and right(cast(szn_id as varchar(5)), 4) != '9999'
-	order by right(cast(szn_id as varchar(5)), 4) desc, 
-	left(cast(szn_id as varchar(5)), 1);
 	`,
 }
 

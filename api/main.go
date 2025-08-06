@@ -25,6 +25,7 @@ func main() {
 		fmt.Println(e.BuildErr(err).Error())
 	}
 
+	// CONNECT TO POSTGRES
 	db, err := pgdb.PostgresConn()
 	if err != nil {
 		fmt.Println(e.BuildErr(err).Error())
@@ -33,7 +34,6 @@ func main() {
 	// configs go here - 8080 for testing, will derive real vals from environment
 	cfg := config{
 		addr: hostaddr,
-		// storePath: storeP,
 	}
 
 	// initialize the app with the configs

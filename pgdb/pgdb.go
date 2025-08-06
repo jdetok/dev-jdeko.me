@@ -17,25 +17,9 @@ func PostgresConn() (*sql.DB, error) {
 		e.Msg = "error connecting to postgres"
 		return nil, e.BuildErr(err)
 	}
+
+	// set max connections
+	db.SetMaxOpenConns(100)
+	db.SetMaxIdleConns(100)
 	return db, nil
 }
-
-/*
-func CreateDBConn(connStr string) (*sql.DB, error) {
-	e := errd.InitErr()
-
-	db, err := sql.Open("mysql", connStr)
-	if err != nil {
-		e.Msg = fmt.Sprintf("sql.Open() failed with connStr = %s", connStr)
-		return nil, e.BuildErr(err)
-	}
-
-	if err := db.Ping(); err != nil {
-		e.Msg = "db.Ping() failed with returned db connection"
-		return nil, e.BuildErr(err)
-	}
-	db.SetMaxIdleConns(20)
-	db.SetMaxOpenConns(200)
-	return db, nil
-}
-*/

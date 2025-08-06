@@ -19,10 +19,7 @@ tmp_dir = "tmp"
   dirs = [
     "./api",
     "./api/store",
-    "./logs",
-    "./mdb",
-    "./getenv",
-    "./applog",
+    "./pgdb",
     "./static"
   ]
 

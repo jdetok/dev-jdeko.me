@@ -103,9 +103,10 @@ type RecentGame struct {
 	TeamName string `json:"team_name"`
 	GameDate string `json:"game_date"`
 	Matchup  string `json:"matchup"`
-	Final    string `json:"final"`
-	Overtime bool   `json:"overtime"`
+	WinLoss  string `json:"wl"`
 	Points   uint16 `json:"points"`
+	// Final    string `json:"final"`
+	// Overtime bool   `json:"overtime"`
 }
 
 // outermost struct, returned to http handler as json string

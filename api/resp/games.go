@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 
-	"github.com/jdetok/dev-jdeko.me/mdb"
+	"github.com/jdetok/dev-jdeko.me/pgdb"
 	"github.com/jdetok/golib/errd"
 )
 
@@ -16,7 +16,7 @@ func MakeRgs(rows *sql.Rows) RecentGames {
 		rows.Scan(&rg.GameId, &rg.TeamId, &rg.PlayerId,
 			&rg.Player, &rg.League, &rg.Team,
 			&rg.TeamName, &rg.GameDate, &rg.Matchup,
-			&rg.Final, &rg.Overtime, &rg.Points, &ps.Points)
+			&rg.WinLoss, &rg.Points, &ps.Points)
 
 		ps.PlayerId = rg.PlayerId
 		ps.TeamId = rg.TeamId
@@ -30,7 +30,8 @@ func MakeRgs(rows *sql.Rows) RecentGames {
 
 func (rgs *RecentGames) GetRecentGames(db *sql.DB) ([]byte, error) {
 	e := errd.InitErr()
-	rows, err := db.Query(mdb.RecentGamePlayers.Q)
+	// rows, err := db.Query(mdb.RecentGamePlayers.Q)
+	rows, err := db.Query(pgdb.RecGameTopScorers.Q)
 	if err != nil {
 		e.Msg = "query failed"
 		return nil, e.BuildErr(err)
@@ -43,3 +44,10 @@ func (rgs *RecentGames) GetRecentGames(db *sql.DB) ([]byte, error) {
 	}
 	return js, nil
 }
+
+/* OLD RECENT GAMES SCAN
+rows.Scan(&rg.GameId, &rg.TeamId, &rg.PlayerId,
+			&rg.Player, &rg.League, &rg.Team,
+			&rg.TeamName, &rg.GameDate, &rg.Matchup,
+			&rg.Final, &rg.Overtime, &rg.Points, &ps.Points)
+*/

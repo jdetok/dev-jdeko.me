@@ -78,7 +78,7 @@ func GetSeasons(db *sql.DB) ([]Season, error) {
 	// fmt.Println("querying seasons & saving to struct")
 	e := errd.InitErr()
 	// rows, err := db.Query(mdb.RSeasons.Q)
-	rows, err := db.Query(pgdb.RSeasons.Q)
+	rows, err := db.Query(pgdb.AllSeasons.Q)
 	if err != nil {
 		e.Msg = "error querying db"
 		e.BuildErr(err)

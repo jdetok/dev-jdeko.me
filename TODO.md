@@ -1,0 +1,21 @@
+# todo 12pm 8/6
+## 1. remake queries used by bball endpoints
+- playerDashHndl
+    - GetpIdsId
+    - GetPlayerDash
+- recGameHndl
+    - this is used to get the top scorer from most recent night of games   
+    - ** NOTE: removing overtime from this query
+    - ** going to omit final as well
+    - ** wl field is going where these would
+    - GetRecentGames
+        - pgdb.
+        - LEGACY MARIADB: mdb.RecentGamePlayers.Q
+- seasonsHndl
+    - uses app.seasons - sourced from store.GetSeasons
+        - pgdb.AllSeasons.Q
+        - LEGACY MARIADB: mdb.RSeasons.Q
+- teamsHndl
+    - uses app.teams - sourced from store.GetTeams
+        - pgdb.Teams.Q
+        - LEGACY MARIADB: mdb.Teams.Q
