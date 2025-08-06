@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/jdetok/go-api-jdeko.me/api/cache"
+	"github.com/jdetok/dev-jdeko.me/api/cache"
 )
 
 type application struct {

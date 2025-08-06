@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/jdetok/go-api-jdeko.me/applog"
+	"github.com/jdetok/dev-jdeko.me/applog"
 )
 
 // testing 7/20/25 with frontend in separate directory

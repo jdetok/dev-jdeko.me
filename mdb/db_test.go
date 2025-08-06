@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jdetok/go-api-jdeko.me/getenv"
+	"github.com/jdetok/dev-jdeko.me/getenv"
 )
 
 func TestInitDB(t *testing.T) {

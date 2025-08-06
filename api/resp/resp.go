@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jdetok/go-api-jdeko.me/api/cache"
+	"github.com/jdetok/dev-jdeko.me/api/cache"
 )
 
 type Resp struct {

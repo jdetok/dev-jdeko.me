@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/jdetok/go-api-jdeko.me/api/cache"
-	"github.com/jdetok/go-api-jdeko.me/api/resp"
-	"github.com/jdetok/go-api-jdeko.me/applog"
+	"github.com/jdetok/dev-jdeko.me/api/cache"
+	"github.com/jdetok/dev-jdeko.me/api/resp"
+	"github.com/jdetok/dev-jdeko.me/applog"
 )
 
 func (app *application) getPlayerDash(w http.ResponseWriter, r *http.Request) {

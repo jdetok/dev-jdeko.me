@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jdetok/go-api-jdeko.me/applog"
+	"github.com/jdetok/dev-jdeko.me/applog"
 )
 
 func CreateDBConn(connStr string) (*sql.DB, error) {

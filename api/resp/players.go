@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/jdetok/go-api-jdeko.me/applog"
-	"github.com/jdetok/go-api-jdeko.me/mdb"
+	"github.com/jdetok/dev-jdeko.me/applog"
+	"github.com/jdetok/dev-jdeko.me/mdb"
 )
 
 func (r *Resp) GetPlayerDash(db *sql.DB, pId uint64, sId uint64, tId uint64) ([]byte, error) {

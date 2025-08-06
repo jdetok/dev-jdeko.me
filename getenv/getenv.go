@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/jdetok/go-api-jdeko.me/applog"
+	"github.com/jdetok/dev-jdeko.me/applog"
 	"github.com/joho/godotenv"
 )
 

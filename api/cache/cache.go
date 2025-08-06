@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jdetok/go-api-jdeko.me/applog"
+	"github.com/jdetok/dev-jdeko.me/applog"
 )
 
 func UpdateStructs(

@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"encoding/json"
 
-	"github.com/jdetok/go-api-jdeko.me/applog"
-	"github.com/jdetok/go-api-jdeko.me/mdb"
+	"github.com/jdetok/dev-jdeko.me/applog"
+	"github.com/jdetok/dev-jdeko.me/mdb"
 )
 
 func MakeRgs(rows *sql.Rows) RecentGames {
