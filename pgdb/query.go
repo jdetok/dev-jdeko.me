@@ -58,19 +58,32 @@ var RecentGamePlayers = Query{
 
 var PlayersSeason = Query{
 	Q: `
-	select a.player_id, lower(a.player), lower(a.league), 
-		max(a.season_id) as rs_max, 
-		min(a.season_id) as rs_min, 
-		ifnull(b.po_max, 40001) as po_max, ifnull(b.po_min, 40001) as po_min
-	from api_player_stats a
-	left join (
-		select player_id, player, league, max(season_id) as po_max, min(season_id) as po_min
-		from api_player_stats
-		where left(season_id, 1) = 4
-		group by player_id, player, league, left(season_id, 1)
+	select 
+		a.player_id,
+		lower(a.player) as plr,
+		case 
+			when a.lg_id = 0 then 'nba'
+			when a.lg_id = 1 then 'wnba'
+		end,
+		b.rs_max, 
+		b.rs_min,
+		coalesce(c.po_max, b.rs_max),
+		coalesce(c.po_min, b.rs_min)
+	from lg.plr a
+	inner join (
+		select player_id, min(season_id) as rs_min, max(season_id) as rs_max
+		from api.plr_agg
+		where left(cast(season_id as varchar(5)), 1) = '2'
+		and right(cast(season_id as varchar(5)), 4) != '9999'
+		group by player_id
 	) b on b.player_id = a.player_id
-	where left(a.season_id, 1) = 2
-	group by a.player_id, a.player, a.league, left(a.season_id, 1);
+	left join (
+		select player_id, min(season_id) as po_min, max(season_id) as po_max
+		from api.plr_agg
+		where left(cast(season_id as varchar(5)), 1) = '4'
+		and right(cast(season_id as varchar(5)), 4) != '9999'
+		group by player_id
+	) c on c.player_id = a.player_id
 	`,
 }
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/jdetok/dev-jdeko.me/pgdb"
+	"github.com/jdetok/go-api-jdeko.me/api/cache"
 	"github.com/jdetok/go-api-jdeko.me/applog"
 	"github.com/jdetok/go-api-jdeko.me/getenv"
 )
@@ -44,16 +45,22 @@ func main() {
 		fmt.Println(e.BuildError(err).Error())
 	}
 
-	var tm string
-	rows, err := db.Query("select team from lg.team order by team_id desc limit 10")
+	// var tm string
+	// var rs []any
+	var ps []cache.Player
+	// rows, err := db.Query("select team from lg.team order by team_id desc limit 10")
+	rows, err := db.Query(pgdb.PlayersSeason.Q)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	for rows.Next() {
-		rows.Scan(&tm)
-		fmt.Println(tm)
+		var p cache.Player
+		rows.Scan(&p.PlayerId, &p.Name, &p.League, &p.SeasonIdMax, &p.SeasonIdMin,
+			&p.PSeasonIdMax, &p.PSeasonIdMin)
+		ps = append(ps, p)
 	}
+	fmt.Println(ps)
 
 	/*
 		// configs go here - 8080 for testing, will derive real vals from environment
