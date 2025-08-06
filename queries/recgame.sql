@@ -27,3 +27,22 @@ select * from (
     inner join lg.plr e on e.player_id = d.player_id
     order by a.game_id, d.pts desc, (d.ast + d.reb + d.stl + d.blk) desc)
 order by plr_pts desc;
+
+
+-- first will always be tot, get avg too
+with tstot as ( 
+select * 
+from api.plr_agg 
+where team_id = 1610612747 and season_id = 22024
+order by points desc
+limit 1)
+select * from tstot 
+union
+select a.* 
+from api.plr_agg a
+inner join tstot b 
+	on a.team_id = b.team_id 
+	and a.season_id = b.season_id
+	and a.player_id = b.player_id
+where a.stat_type = 'avg'
+;

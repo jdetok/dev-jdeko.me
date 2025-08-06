@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/jdetok/dev-jdeko.me/api/resp"
 	"github.com/jdetok/dev-jdeko.me/api/store"
 	"github.com/jdetok/dev-jdeko.me/pgdb"
 	"github.com/jdetok/golib/envd"
@@ -59,13 +60,22 @@ func main() {
 		fmt.Println(e.BuildErr(err).Error())
 	}
 
-	fmt.Printf("players: %d | seasons: %d | teams: %d\n", len(app.players),
-		len(app.seasons), len(app.teams))
-
+	/*
+		fmt.Printf("players: %d | seasons: %d | teams: %d\n", len(app.players),
+			len(app.seasons), len(app.teams))
+	*/
 	// checks if store needs refreshed every 30 seconds, refreshes if 60 sec since last
 	go store.UpdateStructs(app.database, &app.lastUpdate,
 		&app.players, &app.seasons, &app.teams,
 		30*time.Second, 300*time.Second)
+
+	var rp resp.Resp
+	js, err := rp.GetPlayerDash(app.database, 2544, 22024, 0)
+	// js, err := rp.GetPlayerDash(app.database, 0, 22024, 1610612741)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(js))
 
 	/*
 		mux := app.mount()

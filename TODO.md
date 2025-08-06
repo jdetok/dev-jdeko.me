@@ -4,6 +4,12 @@
     - GetpIdsId
         - uses player/season slices in store - done
     - GetPlayerDash
+        - no tId:
+            - pg.PlayerDash.Q
+            - LEGACY MARIADB: mdb.Player.Q
+        - tId passed:
+            - pg.TeamTopScorerDash.Q
+            - LEGACY MARIADB: mdb.TeamSeasonTopP.Q
 - recGameHndl - done, not validated
     - this is used to get the top scorer from most recent night of games   
     - ** NOTE: removing overtime from this query

@@ -19,19 +19,28 @@ var AllSeasons = Query{
 }
 
 // GetPlayerDash
-var Player = Query{
+var PlayerDash = Query{
 	Q: `select * from api.plr_agg where player_id = $1 and season_id = $2`,
 }
 
 // GetPlayerDash
-var TeamSeasonTopP = Query{
+var TeamTopScorerDash = Query{
 	Q: `
-		select a.*, b.season_desc, b.wseason_desc
-		from api_player_stats a
-		join season b on b.season_id = a.season_id
-		where team_id = ? and a.season_id = ?
-		order by a.points desc
-		limit 2;
+	with tstot as ( 
+	select * 
+	from api.plr_agg 
+	where team_id = $1 and season_id = $2
+	order by points desc
+	limit 1)
+	select * from tstot 
+	union
+	select a.* 
+	from api.plr_agg a
+	inner join tstot b 
+		on a.team_id = b.team_id 
+		and a.season_id = b.season_id
+		and a.player_id = b.player_id
+	where a.stat_type = 'avg'
 	`,
 }
 
