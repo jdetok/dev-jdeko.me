@@ -1,13 +1,26 @@
-package mdb
+package pgdb
 
 import (
 	"database/sql"
-	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jdetok/go-api-jdeko.me/applog"
+	"github.com/jdetok/golib/pgresd"
 )
 
+func PostgresConn() (*sql.DB, error) {
+	e := applog.AppErr{Process: "postgres connection"}
+	pg := pgresd.GetEnvPG()
+	pg.MakeConnStr()
+	db, err := pg.Conn()
+	if err != nil {
+		e.Msg = "error connecting to postgres"
+		return nil, e.BuildError(err)
+	}
+	return db, nil
+}
+
+/*
 func CreateDBConn(connStr string) (*sql.DB, error) {
 	e := applog.AppErr{Process: "InitDB(): initialize database connection"}
 
@@ -25,3 +38,4 @@ func CreateDBConn(connStr string) (*sql.DB, error) {
 	db.SetMaxOpenConns(200)
 	return db, nil
 }
+*/

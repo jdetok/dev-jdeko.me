@@ -1,4 +1,4 @@
-package mdb
+package pgdb
 
 type Query struct {
 	Args []string // arguments to accept

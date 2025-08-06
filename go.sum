@@ -4,7 +4,11 @@ github.com/go-sql-driver/mysql v1.9.3 h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1
 github.com/go-sql-driver/mysql v1.9.3/go.mod h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=
 github.com/jdetok/go-api-jdeko.me v0.0.0-20250804161006-a4965c19aaae h1:kbJNy7VlyTDZiM47suK0m5wftG3WbrXsKoK/ZCmGF88=
 github.com/jdetok/go-api-jdeko.me v0.0.0-20250804161006-a4965c19aaae/go.mod h1:BA1Ok+lh0q5Fywco6MeIZXKT1yoErDpUx4SkGb0uW0Q=
+github.com/jdetok/golib v0.0.0-20250804161741-05ec8788eb5f h1:iiuCQgztKgapMBP7SO7prATCZVP6JYMqG2rGU542Rds=
+github.com/jdetok/golib v0.0.0-20250804161741-05ec8788eb5f/go.mod h1:n/TzNVPIaLhbXKE82pIIesDXgoPMi4Nc0c7z7vi6UpQ=
 github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
+github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
+github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 golang.org/x/text v0.27.0 h1:4fGWRpyh641NLlecmyl4LOe6yDdfaYNrGb2zdfo4JV4=
 golang.org/x/text v0.27.0/go.mod h1:1D28KMCvyooCX9hBiosv5Tz/+YLxj0j7XhWjpSUF7CU=
