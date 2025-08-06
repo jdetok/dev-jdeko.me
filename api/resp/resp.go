@@ -80,35 +80,6 @@ type ShootingStats struct {
 	FtPct   string `json:"ft_pct"`
 }
 
-type RecentGames struct {
-	TopScorers []PlayerBasic `json:"top_scorers"`
-	Games      []RecentGame  `json:"recent_games"`
-}
-
-type PlayerBasic struct {
-	PlayerId uint64 `json:"player_id"`
-	TeamId   uint64 `json:"team_id"`
-	Player   string `json:"player"`
-	League   string `json:"league"`
-	Points   uint16 `json:"points"`
-}
-
-type RecentGame struct {
-	GameId   uint64 `json:"game_id"`
-	TeamId   uint64 `json:"team_id"`
-	PlayerId uint64 `json:"player_id"`
-	Player   string `json:"player"`
-	League   string `json:"league"`
-	Team     string `json:"team"`
-	TeamName string `json:"team_name"`
-	GameDate string `json:"game_date"`
-	Matchup  string `json:"matchup"`
-	WinLoss  string `json:"wl"`
-	Points   uint16 `json:"points"`
-	// Final    string `json:"final"`
-	// Overtime bool   `json:"overtime"`
-}
-
 // outermost struct, returned to http handler as json string
 type RespPlayerSznOvw struct {
 	GamesPlayed   uint16  `json:"games_played"`
@@ -183,6 +154,8 @@ func randPlayer(pl []store.Player, sId uint64) uint64 {
 	randNum := rand.IntN(numPlayers)
 	return players[randNum].PlayerId
 }
+
+// uses app.players
 func GetpIdsId(players []store.Player, player string, seasonId string) (uint64, uint64) {
 	sId, _ := strconv.ParseUint(seasonId, 10, 32)
 	var pId uint64

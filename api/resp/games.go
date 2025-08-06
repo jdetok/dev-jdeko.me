@@ -8,6 +8,35 @@ import (
 	"github.com/jdetok/golib/errd"
 )
 
+type RecentGames struct {
+	TopScorers []PlayerBasic `json:"top_scorers"`
+	Games      []RecentGame  `json:"recent_games"`
+}
+
+type PlayerBasic struct {
+	PlayerId uint64 `json:"player_id"`
+	TeamId   uint64 `json:"team_id"`
+	Player   string `json:"player"`
+	League   string `json:"league"`
+	Points   uint16 `json:"points"`
+}
+
+type RecentGame struct {
+	GameId   uint64 `json:"game_id"`
+	TeamId   uint64 `json:"team_id"`
+	PlayerId uint64 `json:"player_id"`
+	Player   string `json:"player"`
+	League   string `json:"league"`
+	Team     string `json:"team"`
+	TeamName string `json:"team_name"`
+	GameDate string `json:"game_date"`
+	Matchup  string `json:"matchup"`
+	WinLoss  string `json:"wl"`
+	Points   uint16 `json:"points"`
+	// Final    string `json:"final"`
+	// Overtime bool   `json:"overtime"`
+}
+
 func MakeRgs(rows *sql.Rows) RecentGames {
 	var rgs RecentGames
 	for rows.Next() {

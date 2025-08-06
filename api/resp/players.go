@@ -34,17 +34,17 @@ func (r *Resp) GetPlayerDash(db *sql.DB, pId uint64, sId uint64, tId uint64) ([]
 		// temp structs, handled in hndlRespRow
 		var s RespPlayerStats
 		var p RespPlayerSznOvw
+		// 8/6 2PM - MOVED Season/WSeason FROM END TO AFTER SeasonId
 		rows.Scan( // MUST BE IN ORDER OF QUERY
 			&rp.Meta.PlayerId, &rp.Meta.TeamId, &rp.Meta.League,
-			&rp.Meta.SeasonId, &rp.Meta.StatType, &rp.Meta.Player,
-			&rp.Meta.Team, &rp.Meta.TeamName,
+			&rp.Meta.SeasonId, &t.Season, &t.WSeason, &rp.Meta.StatType,
+			&rp.Meta.Player, &rp.Meta.Team, &rp.Meta.TeamName,
 			&rp.SeasonOvw.GamesPlayed, &p.Minutes,
 			&s.Box.Points, &s.Box.Assists, &s.Box.Rebounds,
 			&s.Box.Steals, &s.Box.Blocks,
 			&s.Shtg.Fg.Makes, &s.Shtg.Fg.Attempts, &s.Shtg.Fg.Percent,
 			&s.Shtg.Fg3.Makes, &s.Shtg.Fg3.Attempts, &s.Shtg.Fg3.Percent,
-			&s.Shtg.Ft.Makes, &s.Shtg.Ft.Attempts, &s.Shtg.Ft.Percent,
-			&t.Season, &t.WSeason)
+			&s.Shtg.Ft.Makes, &s.Shtg.Ft.Attempts, &s.Shtg.Ft.Percent)
 		// switch on stat type to assign stats to appropriate struct
 		rp.hndlRespRow(&p, &s)
 	}

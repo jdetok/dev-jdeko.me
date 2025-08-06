@@ -14,18 +14,13 @@ var AllSeasons = Query{
 	where left(cast(szn_id as varchar(5)), 1) in ('2', '4')
 	and right(cast(szn_id as varchar(5)), 4) != '9999'
 	order by right(cast(szn_id as varchar(5)), 4) desc, 
-	left(cast(szn_id as varchar(5)), 1);
+	left(cast(szn_id as varchar(5)), 1)
 	`,
 }
 
 // GetPlayerDash
 var Player = Query{
-	Q: `
-		select a.*, b.season_desc, b.wseason_desc
-		from api_player_stats a
-		join season b on b.season_id = a.season_id
-		where a.player_id = ? and a.season_id = ?
-	`,
+	Q: `select * from api.plr_agg where player_id = $1 and season_id = $2`,
 }
 
 // GetPlayerDash
