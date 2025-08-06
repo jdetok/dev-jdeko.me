@@ -4,7 +4,7 @@ go 1.24.3
 
 require (
 	github.com/go-sql-driver/mysql v1.9.3
-	github.com/jdetok/golib v0.0.0-20250806164406-fb6c81d9d883
+	github.com/jdetok/golib v0.0.0-20250806195647-85997077d681
 	golang.org/x/text v0.27.0
 )
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/jdetok/dev-jdeko.me/api/resp"
@@ -77,13 +78,12 @@ func main() {
 	}
 	fmt.Println(string(js))
 
-	/*
-		mux := app.mount()
-		if err := app.run(mux); err != nil {
-			e.Msg = "error mounting api/http server"
-			log.Fatal(e.BuildErr(err).Error())
-		}
-	*/
+	mux := app.mount()
+	if err := app.run(mux); err != nil {
+		e.Msg = "error mounting api/http server"
+		log.Fatal(e.BuildErr(err).Error())
+	}
+
 }
 
 // var tm string
