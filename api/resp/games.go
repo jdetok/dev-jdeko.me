@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"encoding/json"
 
-	"github.com/jdetok/dev-jdeko.me/applog"
 	"github.com/jdetok/dev-jdeko.me/mdb"
+	"github.com/jdetok/golib/errd"
 )
 
 func MakeRgs(rows *sql.Rows) RecentGames {
@@ -29,17 +29,17 @@ func MakeRgs(rows *sql.Rows) RecentGames {
 }
 
 func (rgs *RecentGames) GetRecentGames(db *sql.DB) ([]byte, error) {
-	e := applog.AppErr{Process: "GetRecentGames()"}
+	e := errd.InitErr()
 	rows, err := db.Query(mdb.RecentGamePlayers.Q)
 	if err != nil {
 		e.Msg = "query failed"
-		return nil, e.BuildError(err)
+		return nil, e.BuildErr(err)
 	}
 	recentGames := MakeRgs(rows)
 	js, err := json.Marshal(recentGames)
 	if err != nil {
 		e.Msg = "json marshal failed"
-		return nil, e.BuildError(err)
+		return nil, e.BuildErr(err)
 	}
 	return js, nil
 }

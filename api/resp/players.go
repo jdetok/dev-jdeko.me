@@ -5,12 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/jdetok/dev-jdeko.me/applog"
 	"github.com/jdetok/dev-jdeko.me/mdb"
+	"github.com/jdetok/golib/errd"
 )
 
 func (r *Resp) GetPlayerDash(db *sql.DB, pId uint64, sId uint64, tId uint64) ([]byte, error) {
-	e := applog.AppErr{Process: "GetPlayerDash()"}
+	e := errd.InitErr()
 	var q string
 	var p uint64
 	switch tId {
@@ -26,7 +26,7 @@ func (r *Resp) GetPlayerDash(db *sql.DB, pId uint64, sId uint64, tId uint64) ([]
 	if err != nil {
 		e.Msg = fmt.Sprintf(
 			`player dash query (player_id: %d | season_id: %d)`, pId, sId)
-		return nil, e.BuildError(err)
+		return nil, e.BuildErr(err)
 	}
 	var t RespSeasonTmp // temp seasons for NBA/WNBA, handled after loop
 	var rp RespObj
@@ -61,7 +61,7 @@ func (r *Resp) GetPlayerDash(db *sql.DB, pId uint64, sId uint64, tId uint64) ([]
 	js, err := json.Marshal(r)
 	if err != nil {
 		e.Msg = "failed to marshal structs to json"
-		return nil, e.BuildError(err)
+		return nil, e.BuildErr(err)
 	}
 	return js, nil
 }

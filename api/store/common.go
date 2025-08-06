@@ -5,8 +5,8 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/jdetok/dev-jdeko.me/applog"
 	"github.com/jdetok/dev-jdeko.me/pgdb"
+	"github.com/jdetok/golib/errd"
 	"golang.org/x/text/runes"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
@@ -56,12 +56,12 @@ func (t Team) MakeLogoUrl() string {
 
 // QUERY FOR PLAYER ID, PLAYER AND SAVE TO A LIST OF PLAYER STRUCTS
 func GetPlayers(db *sql.DB) ([]Player, error) {
-	e := applog.AppErr{Process: "saving players to structs"}
+	e := errd.InitErr()
 	// rows, err := db.Query(mdb.PlayersSeason.Q)
 	rows, err := db.Query(pgdb.PlayersSeason.Q)
 	if err != nil {
 		e.Msg = "query failed"
-		return nil, e.BuildError(err)
+		return nil, e.BuildErr(err)
 	}
 	var players []Player
 	for rows.Next() {
@@ -76,12 +76,12 @@ func GetPlayers(db *sql.DB) ([]Player, error) {
 // seasons
 func GetSeasons(db *sql.DB) ([]Season, error) {
 	// fmt.Println("querying seasons & saving to struct")
-	e := applog.AppErr{Process: "saving seasons to struct"}
+	e := errd.InitErr()
 	// rows, err := db.Query(mdb.RSeasons.Q)
 	rows, err := db.Query(pgdb.RSeasons.Q)
 	if err != nil {
 		e.Msg = "error querying db"
-		e.BuildError(err)
+		e.BuildErr(err)
 	}
 
 	var seasons []Season
@@ -96,12 +96,12 @@ func GetSeasons(db *sql.DB) ([]Season, error) {
 
 // teams
 func GetTeams(db *sql.DB) ([]Team, error) {
-	e := applog.AppErr{Process: "saving teams to struct"}
+	e := errd.InitErr()
 	// rows, err := db.Query(mdb.Teams.Q)
 	rows, err := db.Query(pgdb.Teams.Q)
 	if err != nil {
 		e.Msg = "error querying db"
-		e.BuildError(err)
+		e.BuildErr(err)
 	}
 
 	var teams []Team

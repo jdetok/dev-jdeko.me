@@ -5,29 +5,29 @@ import (
 	"time"
 
 	"github.com/jdetok/dev-jdeko.me/api/store"
-	"github.com/jdetok/dev-jdeko.me/applog"
 	"github.com/jdetok/dev-jdeko.me/pgdb"
 	"github.com/jdetok/golib/envd"
+	"github.com/jdetok/golib/errd"
 )
 
 func main() {
 	// load environment variabels
-	e := applog.AppErr{Process: "main function"}
+	e := errd.InitErr()
 
 	// err := godotenv.Load()
 	err := envd.LoadDotEnv()
 	if err != nil {
-		fmt.Println(e.BuildError(err).Error())
+		fmt.Println(e.BuildErr(err).Error())
 	}
 
 	hostaddr, err := envd.GetEnvStr("SRV_IP")
 	if err != nil {
-		fmt.Println(e.BuildError(err).Error())
+		fmt.Println(e.BuildErr(err).Error())
 	}
 
 	db, err := pgdb.PostgresConn()
 	if err != nil {
-		fmt.Println(e.BuildError(err).Error())
+		fmt.Println(e.BuildErr(err).Error())
 	}
 
 	// configs go here - 8080 for testing, will derive real vals from environment
@@ -44,19 +44,19 @@ func main() {
 	// create array of player structs
 	if app.players, err = store.GetPlayers(app.database); err != nil {
 		e.Msg = "failed creating players array"
-		fmt.Println(e.BuildError(err).Error())
+		fmt.Println(e.BuildErr(err).Error())
 	}
 
 	// create array of season structs
 	if app.seasons, err = store.GetSeasons(app.database); err != nil {
 		e.Msg = "failed creating seasons array"
-		fmt.Println(e.BuildError(err).Error())
+		fmt.Println(e.BuildErr(err).Error())
 	}
 
 	// create array of season structs
 	if app.teams, err = store.GetTeams(app.database); err != nil {
 		e.Msg = "failed creating teams array"
-		fmt.Println(e.BuildError(err).Error())
+		fmt.Println(e.BuildErr(err).Error())
 	}
 
 	fmt.Printf("players: %d | seasons: %d | teams: %d\n", len(app.players),
@@ -71,7 +71,7 @@ func main() {
 		mux := app.mount()
 		if err := app.run(mux); err != nil {
 			e.Msg = "error mounting api/http server"
-			log.Fatal(e.BuildError(err).Error())
+			log.Fatal(e.BuildErr(err).Error())
 		}
 	*/
 }

@@ -248,11 +248,11 @@ func SearchPlayers(players []store.Player, pSearch string) string {
 // // seasons
 // func GetSeasons(db *sql.DB) ([]Season, error) {
 // 	fmt.Println("querying seasons & saving to struct")
-// 	e := applog.AppErr{Process: "saving seasons to struct"}
+// 	e := errd.InitErr()
 // 	rows, err := db.Query(mdb.RSeasons.Q)
 // 	if err != nil {
 // 		e.Msg = "error querying db"
-// 		e.BuildError(err)
+// 		e.BuildErr(err)
 // 	}
 
 // 	var seasons []Season
@@ -267,11 +267,11 @@ func SearchPlayers(players []store.Player, pSearch string) string {
 
 // // teams
 // func GetTeams(db *sql.DB) ([]Team, error) {
-// 	e := applog.AppErr{Process: "saving teams to struct"}
+// 	e := errd.InitErr()
 // 	rows, err := db.Query(mdb.Teams.Q)
 // 	if err != nil {
 // 		e.Msg = "error querying db"
-// 		e.BuildError(err)
+// 		e.BuildErr(err)
 // 	}
 
 // 	var teams []Team

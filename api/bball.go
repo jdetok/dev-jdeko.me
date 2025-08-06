@@ -8,12 +8,12 @@ import (
 
 	"github.com/jdetok/dev-jdeko.me/api/resp"
 	"github.com/jdetok/dev-jdeko.me/api/store"
-	"github.com/jdetok/dev-jdeko.me/applog"
+	"github.com/jdetok/golib/errd"
 )
 
 func (app *application) playerDashHndl(w http.ResponseWriter, r *http.Request) {
-	e := applog.AppErr{Process: "player dash endpoint", IsHTTP: true}
-	applog.LogHTTP(r)
+	e := errd.InitErr()
+	LogHTTP(r)
 
 	var rp resp.Resp
 	var tId uint64
@@ -27,30 +27,29 @@ func (app *application) playerDashHndl(w http.ResponseWriter, r *http.Request) {
 
 	js, err := rp.GetPlayerDash(app.database, pId, sId, tId)
 	if err != nil {
-		e.Msg = "failed to get player dash"
-		e.MsgHTTP = fmt.Sprintf("server failed to return player dash for %s", player)
-		e.HTTPErr(w, e.BuildError(err))
+		msg := fmt.Sprintf("server failed to return player dash for %s", player)
+		e.HTTPErr(w, msg, err)
 	}
 	app.JSONWriter(w, js)
 }
 
 // come back to this - used in top scorer maybe?
 func (app *application) recGameHndl(w http.ResponseWriter, r *http.Request) {
-	e := applog.AppErr{Process: "recent games endpoint"}
-	applog.LogHTTP(r)
+	e := errd.InitErr()
+	LogHTTP(r)
 	rgs := resp.RecentGames{}
 	js, err := rgs.GetRecentGames(app.database)
 	if err != nil {
 		e.Msg = "failed to get recent games"
-		e.MsgHTTP = "server failed to return recent games"
-		e.HTTPErr(w, e.BuildError(err))
+		msg := "server failed to return recent games"
+		e.HTTPErr(w, msg, err)
 	}
 	app.JSONWriter(w, js)
 }
 
 // FOR SEASONS SELECTOR - CALLED ON PAGE LOAD
 func (app *application) seasonsHndl(w http.ResponseWriter, r *http.Request) {
-	applog.LogHTTP(r)
+	LogHTTP(r)
 	season := r.URL.Query().Get("szn")
 	w.Header().Set("Content-Type", "application/json")
 	if season == "" { // send all szns when szn is not in q str, used most often
@@ -68,7 +67,7 @@ func (app *application) seasonsHndl(w http.ResponseWriter, r *http.Request) {
 
 // FOR TEAMS SELECTOR - CALLED ON PAGE LOAD
 func (app *application) teamsHndl(w http.ResponseWriter, r *http.Request) {
-	applog.LogHTTP(r)
+	LogHTTP(r)
 	team := r.URL.Query().Get("team")
 	w.Header().Set("Content-Type", "application/json")
 	if team == "" { // send all teams when team is not in q str, used most often

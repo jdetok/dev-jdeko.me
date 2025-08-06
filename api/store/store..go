@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jdetok/dev-jdeko.me/applog"
+	"github.com/jdetok/golib/errd"
 )
 
 func UpdateStructs(
@@ -18,7 +18,7 @@ func UpdateStructs(
 	threshold time.Duration) {
 
 	// func starts here
-	e := applog.AppErr{Process: "UpdateStructs()"}
+	e := errd.InitErr()
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
 
@@ -31,7 +31,7 @@ func UpdateStructs(
 			newSeasons, err := GetSeasons(db)
 			if err != nil {
 				e.Msg = "failed to get seasons"
-				fmt.Println(e.BuildError(err))
+				fmt.Println(e.BuildErr(err))
 			}
 			*seasons = newSeasons
 
@@ -39,7 +39,7 @@ func UpdateStructs(
 			newPlayers, err := GetPlayers(db)
 			if err != nil {
 				e.Msg = "failed to get players"
-				fmt.Println(e.BuildError(err))
+				fmt.Println(e.BuildErr(err))
 			}
 			*players = newPlayers
 
@@ -47,7 +47,7 @@ func UpdateStructs(
 			newTeams, err := GetTeams(db)
 			if err != nil {
 				e.Msg = "failed to get teams"
-				fmt.Println(e.BuildError(err))
+				fmt.Println(e.BuildErr(err))
 			}
 			*teams = newTeams
 
