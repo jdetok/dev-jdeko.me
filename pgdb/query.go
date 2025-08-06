@@ -91,13 +91,12 @@ var PlayersSeason = Query{
 var RSeasons = Query{
 	Args: []string{},
 	Q: `
-	select season_id, season_desc, wseason_desc
-	from season
-	where (
-		left(season_id, 1) in ('2', '4')
-		and right(season_id, 4) >= 2000
-	) or season_id > 99990 -- agg seasons 
-	order by right(season_id, 4) desc, left(season_id, 1)
+	select szn_id, szn_desc, wszn_desc
+	from lg.szn	
+	where left(cast(szn_id as varchar(5)), 1) in ('2', '4')
+	and right(cast(szn_id as varchar(5)), 4) != '9999'
+	order by right(cast(szn_id as varchar(5)), 4) desc, 
+	left(cast(szn_id as varchar(5)), 1);
 	`,
 }
 
