@@ -1,4 +1,4 @@
-package cache
+package store
 
 import (
 	"database/sql"
@@ -24,7 +24,7 @@ func UpdateStructs(
 
 	for range ticker.C {
 		if time.Since(*lastUpdate) > threshold {
-			fmt.Printf("refreshing cache at %v: %v since last update\n",
+			fmt.Printf("refreshing store at %v: %v since last update\n",
 				time.Now().Format("2006-01-02 15:04:05"), threshold)
 
 			// REFRESH THE SEASONS ARRAY
@@ -53,7 +53,7 @@ func UpdateStructs(
 
 			updateTime := time.Now()
 			*lastUpdate = updateTime
-			fmt.Printf("finished refreshing cache at %v\n", updateTime)
+			fmt.Printf("finished refreshing store at %v\n", updateTime)
 		}
 	}
 }

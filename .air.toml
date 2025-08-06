@@ -18,7 +18,7 @@ tmp_dir = "tmp"
 [watch]
   dirs = [
     "./api",
-    "./api/cache",
+    "./api/store",
     "./logs",
     "./mdb",
     "./getenv",

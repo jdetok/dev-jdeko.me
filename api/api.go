@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/jdetok/dev-jdeko.me/api/cache"
+	"github.com/jdetok/dev-jdeko.me/api/store"
 )
 
 type application struct {
@@ -14,14 +14,14 @@ type application struct {
 	database   *sql.DB
 	StartTime  time.Time
 	lastUpdate time.Time
-	players    []cache.Player
-	seasons    []cache.Season
-	teams      []cache.Team
+	players    []store.Player
+	seasons    []store.Season
+	teams      []store.Team
 }
 
 type config struct {
 	addr string
-	// cachePath string
+	// storePath string
 }
 
 func (app *application) run(mux *http.ServeMux) error {
@@ -57,8 +57,8 @@ func (app *application) mount() *http.ServeMux {
 	mux.HandleFunc("GET /bball/player", app.playerDashHndl)
 	mux.HandleFunc("GET /bball/games/recent", app.recGameHndl)
 
-	mux.Handle("/js/", http.HandlerFunc(app.jsNoCache))
-	mux.Handle("/css/", http.HandlerFunc(app.cssNoCache))
+	mux.Handle("/js/", http.HandlerFunc(app.jsNostore))
+	mux.Handle("/css/", http.HandlerFunc(app.cssNostore))
 	mux.HandleFunc("/", app.rootHndl)
 
 	return mux

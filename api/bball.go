@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/jdetok/dev-jdeko.me/api/cache"
 	"github.com/jdetok/dev-jdeko.me/api/resp"
+	"github.com/jdetok/dev-jdeko.me/api/store"
 	"github.com/jdetok/dev-jdeko.me/applog"
 )
 
@@ -22,7 +22,7 @@ func (app *application) playerDashHndl(w http.ResponseWriter, r *http.Request) {
 	tId, _ = strconv.ParseUint(team, 10, 64)
 
 	season := r.URL.Query().Get("season")
-	player := cache.Unaccent(r.URL.Query().Get("player"))
+	player := store.Unaccent(r.URL.Query().Get("player"))
 	pId, sId := resp.GetpIdsId(app.players, player, season)
 
 	js, err := rp.GetPlayerDash(app.database, pId, sId, tId)

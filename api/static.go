@@ -21,7 +21,7 @@ const brontoPath string = "/app/static/bronto/bronto.html"
 
 func (app *application) rootHndl(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
-	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("store-Control", "no-store")
 	http.FileServer(http.Dir(fsPath)).ServeHTTP(w, r)
 }
 
@@ -45,14 +45,14 @@ func (app *application) bballAbtHndl(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, bballAbtPath)
 }
 
-func (app *application) cssNoCache(w http.ResponseWriter, r *http.Request) {
+func (app *application) cssNostore(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
-	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("store-Control", "no-store")
 	http.StripPrefix("/css/", http.FileServer(http.Dir(fsPath+"/css"))).ServeHTTP(w, r)
 }
 
-func (app *application) jsNoCache(w http.ResponseWriter, r *http.Request) {
+func (app *application) jsNostore(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
-	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("store-Control", "no-store")
 	http.StripPrefix("/js/", http.FileServer(http.Dir(fsPath+"**/js"))).ServeHTTP(w, r)
 }
