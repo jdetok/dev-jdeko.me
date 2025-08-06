@@ -12,11 +12,13 @@ import (
 func LogHTTP(r *http.Request) {
 	logd.Logc(fmt.Sprintf(`
 +++ REQUEST RECEIVED - %v
+- Request URL: %v
 - Method: %v | Request URI: %v
 - Referrer: %v
 - Remote Addr: %v
 - User Agent: %v`,
 		time.Now().Format("2006-01-02 15:04:05"),
+		r.URL,
 		r.Method,
 		r.RequestURI,
 		r.RemoteAddr,
