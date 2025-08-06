@@ -6,8 +6,8 @@ import (
 
 	"github.com/jdetok/dev-jdeko.me/api/store"
 	"github.com/jdetok/dev-jdeko.me/applog"
-	"github.com/jdetok/dev-jdeko.me/getenv"
 	"github.com/jdetok/dev-jdeko.me/pgdb"
+	"github.com/jdetok/golib/envd"
 )
 
 func main() {
@@ -15,12 +15,12 @@ func main() {
 	e := applog.AppErr{Process: "main function"}
 
 	// err := godotenv.Load()
-	err := getenv.LoadDotEnv()
+	err := envd.LoadDotEnv()
 	if err != nil {
 		fmt.Println(e.BuildError(err).Error())
 	}
 
-	hostaddr, err := getenv.GetEnvStr("SRV_IP")
+	hostaddr, err := envd.GetEnvStr("SRV_IP")
 	if err != nil {
 		fmt.Println(e.BuildError(err).Error())
 	}
