@@ -19,28 +19,28 @@ const brontoPath string = "/app/static/bronto/bronto.html"
 // const abtPath string = "/static/about/about.html"
 // const brontoPath string = "/static/bronto/bronto.html"
 
-func (app *application) rootHandler(w http.ResponseWriter, r *http.Request) {
+func (app *application) rootHndl(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
 	w.Header().Set("Cache-Control", "no-store")
 	http.FileServer(http.Dir(fsPath)).ServeHTTP(w, r)
 }
 
-func (app *application) abtHandler(w http.ResponseWriter, r *http.Request) {
+func (app *application) abtHndl(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
 	http.ServeFile(w, r, abtPath)
 }
 
-func (app *application) brontoHandler(w http.ResponseWriter, r *http.Request) {
+func (app *application) brontoHndl(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
 	http.ServeFile(w, r, brontoPath)
 }
 
-func (app *application) bballHandler(w http.ResponseWriter, r *http.Request) {
+func (app *application) bballHndl(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
 	http.ServeFile(w, r, bballPath)
 }
 
-func (app *application) bballAbtHandler(w http.ResponseWriter, r *http.Request) {
+func (app *application) bballAbtHndl(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
 	http.ServeFile(w, r, bballAbtPath)
 }

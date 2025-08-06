@@ -11,12 +11,13 @@ import (
 	"github.com/jdetok/dev-jdeko.me/applog"
 )
 
-func (app *application) getPlayerDash(w http.ResponseWriter, r *http.Request) {
+func (app *application) playerDashHndl(w http.ResponseWriter, r *http.Request) {
 	e := applog.AppErr{Process: "player dash endpoint", IsHTTP: true}
 	applog.LogHTTP(r)
-	var rp resp.Resp
 
+	var rp resp.Resp
 	var tId uint64
+
 	team := r.URL.Query().Get("team")
 	tId, _ = strconv.ParseUint(team, 10, 64)
 
@@ -33,7 +34,8 @@ func (app *application) getPlayerDash(w http.ResponseWriter, r *http.Request) {
 	app.JSONWriter(w, js)
 }
 
-func (app *application) getGamesRecentNew(w http.ResponseWriter, r *http.Request) {
+// come back to this - used in top scorer maybe?
+func (app *application) recGameHndl(w http.ResponseWriter, r *http.Request) {
 	e := applog.AppErr{Process: "recent games endpoint"}
 	applog.LogHTTP(r)
 	rgs := resp.RecentGames{}
@@ -47,15 +49,15 @@ func (app *application) getGamesRecentNew(w http.ResponseWriter, r *http.Request
 }
 
 // FOR SEASONS SELECTOR - CALLED ON PAGE LOAD
-func (app *application) getSeasons(w http.ResponseWriter, r *http.Request) {
+func (app *application) seasonsHndl(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
 	season := r.URL.Query().Get("szn")
 	w.Header().Set("Content-Type", "application/json")
-	if season == "" {
+	if season == "" { // send all szns when szn is not in q str, used most often
 		json.NewEncoder(w).Encode(app.seasons)
 	} else {
 		for _, szn := range app.seasons {
-			if season == szn.SeasonId {
+			if season == szn.SeasonId { // validate szn from q string
 				json.NewEncoder(w).Encode(map[string]string{
 					"szn": season,
 				})
@@ -65,13 +67,13 @@ func (app *application) getSeasons(w http.ResponseWriter, r *http.Request) {
 }
 
 // FOR TEAMS SELECTOR - CALLED ON PAGE LOAD
-func (app *application) getTeams(w http.ResponseWriter, r *http.Request) {
+func (app *application) teamsHndl(w http.ResponseWriter, r *http.Request) {
 	applog.LogHTTP(r)
 	team := r.URL.Query().Get("team")
 	w.Header().Set("Content-Type", "application/json")
-	if team == "" {
+	if team == "" { // send all teams when team is not in q str, used most often
 		json.NewEncoder(w).Encode(app.teams)
-	} else {
+	} else { // read & valid team from q string, not yet used 8/6
 		for _, tm := range app.teams {
 			if team == tm.TeamAbbr {
 				tm.LogoUrl = tm.MakeLogoUrl()

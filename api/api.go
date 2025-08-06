@@ -47,18 +47,19 @@ func (app *application) run(mux *http.ServeMux) error {
 func (app *application) mount() *http.ServeMux {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /about", app.abtHandler)
-	mux.HandleFunc("GET /bronto", app.brontoHandler)
-	mux.HandleFunc("GET /bball", app.bballHandler)
-	mux.HandleFunc("GET /bball/about", app.bballAbtHandler)
-	mux.HandleFunc("GET /bball/seasons", app.getSeasons)
-	mux.HandleFunc("GET /bball/teams", app.getTeams)
-	mux.HandleFunc("GET /bball/player", app.getPlayerDash)
-	mux.HandleFunc("GET /bball/games/recent", app.getGamesRecentNew)
+	// standardize handlers: end with Hndl e.g. abtHndl, brontoHndl
+	mux.HandleFunc("GET /about", app.abtHndl)
+	mux.HandleFunc("GET /bronto", app.brontoHndl)
+	mux.HandleFunc("GET /bball", app.bballHndl)
+	mux.HandleFunc("GET /bball/about", app.bballAbtHndl)
+	mux.HandleFunc("GET /bball/seasons", app.seasonsHndl)
+	mux.HandleFunc("GET /bball/teams", app.teamsHndl)
+	mux.HandleFunc("GET /bball/player", app.playerDashHndl)
+	mux.HandleFunc("GET /bball/games/recent", app.recGameHndl)
 
 	mux.Handle("/js/", http.HandlerFunc(app.jsNoCache))
 	mux.Handle("/css/", http.HandlerFunc(app.cssNoCache))
-	mux.HandleFunc("/", app.rootHandler)
+	mux.HandleFunc("/", app.rootHndl)
 
 	return mux
 }
