@@ -103,16 +103,13 @@ var RSeasons = Query{
 var Teams = Query{
 	Args: []string{},
 	Q: `
-	select a.lg, a.team_id, a.team, a.team_name
-	from team a
-	inner join ( 
-		select season_id, team_id
-		from t_box
-		where left(season_id, 1) = '2'
-		and right(season_id, 4) >= '2000'
-		group by season_id, team_id
-		) b on b.team_id = a.team_id
-	where a.lg in ('NBA', 'WNBA')
-	group by a.lg, a.team_id, a.team, a.team_name
+	select
+		case
+			when lg_id = 0 then 'NBA'
+			when lg_id = 1 then 'WNBA'
+		end,
+		team_id, team, team_long
+	from lg.team
+	where team_id > 0
 	`,
 }

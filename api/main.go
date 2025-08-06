@@ -64,19 +64,33 @@ func main() {
 		fmt.Println(ps)
 	*/
 
-	var ss []cache.Season
-	// rows, err := db.Query("select team from lg.team order by team_id desc limit 10")
-	rows, err := db.Query(pgdb.RSeasons.Q)
+	/*
+		var ss []cache.Season
+		// rows, err := db.Query("select team from lg.team order by team_id desc limit 10")
+		rows, err := db.Query(pgdb.RSeasons.Q)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		for rows.Next() {
+			var s cache.Season
+			rows.Scan(&s.SeasonId, &s.Season, &s.WSeason)
+			ss = append(ss, s)
+		}
+		fmt.Println(ss)
+	*/
+	var ts []cache.Team
+	rows, err := db.Query(pgdb.Teams.Q)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	for rows.Next() {
-		var s cache.Season
-		rows.Scan(&s.SeasonId, &s.Season, &s.WSeason)
-		ss = append(ss, s)
+		var t cache.Team
+		rows.Scan(&t.League, &t.TeamId, &t.TeamAbbr, &t.CityTeam)
+		ts = append(ts, t)
 	}
-	fmt.Println(ss)
+	fmt.Println(ts)
 
 	/*
 		// configs go here - 8080 for testing, will derive real vals from environment
