@@ -11,8 +11,8 @@
 </head>
 
 <header class="hdr">
-  <div><a href="https://jdeko.me">jdeko.me</a></div>
-  <div><a href="https://jdeko.me/bball">jdeko.me/bball</a></div>
+  <div><a href="http://100.81.56.39:8888">jdeko.me</a></div>
+  <div><a href="http://100.81.56.39:8888/bball">jdeko.me/bball</a></div>
   <div><a target="_blank" href="https://github.com/jdetok/dev-jdeko.me">
     jdeko.me source code</a></div>
   <div><a target="_blank" href="https://github.com/jdetok">
@@ -73,13 +73,13 @@
       <div class="abtp">
         every HTTPS request to jdeko.me is routed and handled through an API that i wrote in Go. 
         this API is connected to the same backend docker network as my mariadb database, and serves
-        all interaction with my <a href="https://jdeko.me/bball">jdeko.me/bball</a><br>
+        all interaction with my <a href="http://100.81.56.39:8888/bball">jdeko.me/bball</a><br>
         <a href="https://github.com/jdetok/dev-jdeko.me/tree/main/api">api source code (go)</a>
       </div>
     </div>
     <div class="flexel"><h2>mariadb database</h2>
     <div class="abtp">
-        mariadb is the database server that powers my <a href="https://jdeko.me/bball">jdeko.me/bball</a>.
+        mariadb is the database server that powers my <a href="http://100.81.56.39:8888/bball">jdeko.me/bball</a>.
         mariadb is a fork of mysql, with nearly identical syntax. new stats are inserted into this database
         nightly with the execution of a <a href="https://github.com/jdetok/py-nba-mdb">python script</a>.
         a daily cronjob runs a shell script that runs my docker compose file, which then runs the python
@@ -87,7 +87,7 @@
       </div>
     </div>
     <div class="flexel"><h2>javascript</h2>
-      javascript powers the frontend of my <a href="https://jdeko.me/bball">jdeko.me/bball</a>.
+      javascript powers the frontend of my <a href="http://100.81.56.39:8888/bball">jdeko.me/bball</a>.
       all interactions with any of the buttons/selectors/text-boxes on this page are handled
       with javascript event handlers that call endpoints from my API<br>
       <a href="https://github.com/jdetok/dev-jdeko.me/tree/main/www/src/js">

@@ -2,7 +2,7 @@
 import * as ui from "./ui.js"
 import * as resp from "./resp.js"
 
-export const base = "http://localhost:8888/bball";
+export const base = "http://100.81.56.39:8888/bball";
 
 document.addEventListener('DOMContentLoaded', async () => {
     await ui.loadSznOptions();
@@ -11,5 +11,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     await ui.search();
     await ui.clearSearch();
     await ui.holdPlayerBtn();
-    await resp.getRecGames();
+    await resp.getRecentTopScorer();
 });

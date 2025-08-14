@@ -15,11 +15,11 @@
 
 <header>
   <div class="hdr">
-    <div><a href="http://localhost:8888">go to jdeko.me</a></div>
+    <div><a href="http://100.81.56.39:8888">go to jdeko.me</a></div>
     <div><a target="_blank" href="https://github.com/jdetok/dev-jdeko.me">
       jdeko.me source code</a></div>
-    <div><a href="http://localhost:8888/about">about jdeko.me/bball</a></div>
-    <div class="hidesmall"><a target="_blank" href="http://localhost:8888/about">
+    <div><a href="http://100.81.56.39:8888/about">about jdeko.me/bball</a></div>
+    <div class="hidesmall"><a target="_blank" href="http://100.81.56.39:8888/about">
       about jdeko.me</a></div>
     <div><a target="_blank" href="https://www.nba.com/stats">
         all data owned by the nba/wnba</a></div>
@@ -29,7 +29,79 @@
   
   <h1>jdeko.me/bball<br>nba/wnba statistics</h1>
 
+
   <!-- SELECTS ========================================= -->
+  <form id="ui">
+    <div class="uirowouter"> 
+      <div class="uiopt" id="psdiv">
+        <label for="post">post-seasons:</label>
+        <div class="uirow"> 
+          <div class="hlp" id="hlpPs">?</div>
+          <select id="ps_slct"></select>
+          <input type="checkbox" id="post">
+        </div>
+      </div>
+      <div class="uiopt" id="rsdiv">
+        <label for="reg">regular seasons:</label>
+        <div class="uirow">
+          <input type="checkbox" value="rs" id="reg">
+          <select id="rs_slct"></select>
+          <div class="hlp" id="hlpRs">?</div>
+        </div>
+      </div>
+    </div> 
+    <div class="hvr" id="selhvr"></div>
+    <div class="uisect">
+      <div class="err" id="sErr"></div>
+      <input type="text" style="display:none;" id="pHold">
+      <div class="uirow">
+        <input type="text" id="pSearch" placeholder="Search for a player">
+        <button type="button" id="clearS">clear search</button>
+      </div>
+      <div class="uirow">
+        <button type="submit" id="search">search player</button>
+        <button type="button" id="holdP">hold current player</button>
+        <div class="hlp" id="hlpHld">?</div>
+      </div>
+      
+      <div class="uirow">
+        <button type="button" id="randP">search for a random player</button>
+        <div class="hlp" id="hlpRnd">?</div>
+      </div>
+    </div>
+    <div class="hvr" id="hvrmsg"></div>
+  </form>
+  <div class="respouter">
+    <div class="resptitle" id="player_title"></div>
+    <div class="resprow">
+      <div class="respsect">
+        <div class="respblk" id="player_szn"></div>
+        <div class="respimgs" id="imgs">
+          <div id="tm_img"></div>
+          <div id="pl_img"></div>
+        </div>
+      </div>
+      <div class="respsect" id="stats">
+        <div class="resptbls">
+          <div class="resptbl" id="box"></div>
+          <div class="resptbl" id="avg-box"></div>
+          <div class="resptbl" id="shooting"></div>
+          <div class="resptbl" id="avg-shooting"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btm">
+    <i>there may be small inconsitencies with statistics at nba.com -- 
+      this is a personal passion project for learning more
+      about web development & database administration and not an official
+      source of nba/wnba data
+    </i>
+  </div>
+</body>
+</html>
+
+  <!-- SELECTS ========================================= 
   <form id="ui">
     <div class="uirow"> 
       <div class="uiopt" id="crdiv"> 
@@ -104,7 +176,7 @@
   </div>
 </body>
 </html>
-
+-->
 <!-- 
 <div class="uirow" style="display: none;">
 <div class="uiopt">
